@@ -8,7 +8,7 @@ function buildUserDataScript(githubRegistrationToken, label) {
   if (config.input.runnerHomeDir) {
     // If runner home directory is specified, we expect the actions-runner software (and dependencies)
     // to be pre-installed in the AMI, so we simply cd into that directory and then start the runner
-    userData =  [
+    userData = [
       '#!/bin/bash',
       'exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1',
       `cd "${config.input.runnerHomeDir}"`,
@@ -28,13 +28,13 @@ function buildUserDataScript(githubRegistrationToken, label) {
     ];
   }
   if (config.input.runAsUser) {
-    userData.push(`chown -R ${config.input.runAsUser} ${config.input.runnerHomeDir}`);
+    userData.push(`chown -R ${config.input.runAsUser} ${config.input.runnerHomeDir || '.'}`);
   }
   if (config.input.runAsService) {
     userData.push(`./svc.sh install ${config.input.runAsUser || ''}`);
     userData.push('./svc.sh start');
   } else {
-    userData.push(`${config.input.runAsUser ? `su ${config.input.runAsUser} -c` : ''} ./run.sh`); 
+    userData.push(`${config.input.runAsUser ? `su ${config.input.runAsUser} -c` : ''} ./run.sh`);
   }
   return userData;
 }
