@@ -72,7 +72,12 @@ inputs:
     required: false
   run-runner-as-user:
     description: >-
-      Specify user under whom the runner service should run
+      Specify user under whom the runner service should run.
+    required: false
+  runner-version:
+    description: >-
+      Specify the GitHub actions runner version to download.
+    required: false
 outputs:
   label:
     description: >-

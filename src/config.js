@@ -15,7 +15,8 @@ class Config {
       iamRoleName: core.getInput('iam-role-name'),
       runnerHomeDir: core.getInput('runner-home-dir'),
       runAsService: core.getInput('run-runner-as-service') === 'true',
-      runAsUser: core.getInput('run-runner-as-user')
+      runAsUser: core.getInput('run-runner-as-user'),
+      runnerVersion: core.getInput('runner-version'),
     };
 
     const tags = JSON.parse(core.getInput('aws-resource-tags'));
